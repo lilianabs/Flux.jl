@@ -35,9 +35,9 @@ These gradients are based on `x` and `y`. Flux works by instead taking gradients
 Machine learning often can have *hundreds* of parameters, so Flux lets you work with collections of parameters, via the `params` functions. You can get the gradient of all parameters used in a program without explicitly passing them in.
 
 ```jldoctest basics
-julia> x = [2, 1];
+julia> x = [1, 2];
 
-julia> y = [2, 0];
+julia> y = [3, 5];
 
 julia> gs = gradient(Flux.params(x, y)) do
          f(x, y)
