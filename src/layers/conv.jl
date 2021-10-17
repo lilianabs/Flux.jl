@@ -121,7 +121,7 @@ Conv((3,), 4 => 5, σ)  # 65 parameters
 julia> c1(randn(100, 4, 64)) |> size
 (98, 5, 64)
 
-julia> params(c1) |> length
+julia> Flux.params(c1) |> length
 2
 ```
 """
