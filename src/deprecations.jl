@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # v0.12 deprecations
 @deprecate Dropout(p, dims) Dropout(p; dims=dims)
 @deprecate InstanceNorm(λ, β, γ, μ, σ², ϵ, momentum, active=nothing) InstanceNorm(λ, β, γ, μ, σ², ϵ, momentum, true, true, active, length(β))
@@ -37,3 +38,6 @@ zeros32(::Type, dims...) = throw(ArgumentError("Flux.zeros32 is always Float32, 
 
 # v0.13 deprecations
 @deprecate Maxout(layers::Tuple) Maxout(layers...)
+=======
+# v0.13 deprecations
+>>>>>>> 3349d23d (remove all v0.12 deprecations)
