@@ -131,23 +131,10 @@ struct Dense{F, M<:AbstractMatrix, B}
 end
 
 function Dense(in::Integer, out::Integer, σ = identity;
-               initW = nothing, initb = nothing,
                init = glorot_uniform, bias=true)
 
-  W = if initW !== nothing
-    Base.depwarn("keyword initW is deprecated, please use init (which similarly accepts a funtion like randn)", :Dense)
-    initW(out, in)
-  else
-    init(out, in)
-  end
-
-  b = if bias === true && initb !== nothing
-    Base.depwarn("keyword initb is deprecated, please simply supply the bias vector, bias=initb(out)", :Dense)
-    initb(out)
-  else
-    bias
-  end
-
+  W = init(out, in)
+  b = bias
   return Dense(W, b, σ)
 end
 
@@ -186,19 +173,9 @@ struct Diagonal{T}
   β::T
 end
 
-function Diagonal(sz::Integer...; initα = nothing, initβ = nothing)
-  α = if initα !== nothing
-    Base.depwarn("keyword initα is deprecated, please simply supply the desired vectors", :Diagonal)
-    initα(sz...)
-  else
-    ones32(sz...)
-  end
-  β = if initβ !== nothing
-    Base.depwarn("keyword initβ is deprecated, please simply supply the desired vectors", :Diagonal)
-    initβ(sz...)
-  else
-    zeros32(sz...)
-  end
+function Diagonal(sz::Integer...)
+  α = ones32(sz...)
+  β = zeros32(sz...)
   Diagonal(α, β)
 end
 
