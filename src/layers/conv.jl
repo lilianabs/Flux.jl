@@ -31,7 +31,7 @@ end
 
 """
     Conv(filter, in => out, σ = identity;
-         stride = 1, pad = 0, dilation = 1, groups = 1, [bias, weight, init])
+         stride = 1, pad = 0, dilation = 1, groups = 1, [bias, init])
 
 Standard convolutional layer. `filter` is a tuple of integers
 specifying the size of the convolutional kernel;
@@ -61,8 +61,6 @@ Then:
 
 Keywords to control initialization of the layer:
 * `init` - Function used to generate initial weights. Defaults to `glorot_uniform`.
-* `weight` - Initial weights of the layer. Typically an array, and can be used to override
-  other configurations. By default, these are generated using [`convfilter`](@ref).
 * `bias` - Initial bias is zero by default, this can be disabled entirely by setting it to
   [`Flux.Zeros()`](@ref) or equivalently `false`, or another vector provided as
   `bias = randn(Float32, out)`.
