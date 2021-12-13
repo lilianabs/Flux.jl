@@ -136,8 +136,13 @@ end
 
 function Conv(k::NTuple{N,Integer}, ch::Pair{<:Integer,<:Integer}, σ = identity;
             init = glorot_uniform, stride = 1, pad = 0, dilation = 1, groups = 1,
-            weight = convfilter(k, ch; init, groups), bias = true) where N
-
+            weight = nothing, bias = true) where N
+    if weight !== nothing
+      # TODO remove in v0.14
+      Base.depwarn("The `weight` keyword arg is deprecated, use the Conv(weight, ...) constructor instead", :conv_weight)
+    else
+      weight = convfilter(k, ch; init, groups)
+    end
   Conv(weight, bias, σ; stride, pad, dilation, groups)
 end
 
