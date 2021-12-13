@@ -103,7 +103,7 @@ Multiple optimisers and callbacks can be passed to `opt` and `cb` as arrays.
 function train!(loss, ps, data, opt; cb = () -> ())
   ps = Params(ps)
   cb = runall(cb)
-  @progress for d in data
+  for d in data
     try
       gs = gradient(ps) do
         loss(batchmemaybe(d)...)
