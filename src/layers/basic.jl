@@ -171,11 +171,7 @@ struct Diagonal{T}
   β::T
 end
 
-function Diagonal(sz::Integer...)
-  α = ones32(sz...)
-  β = zeros32(sz...)
-  Diagonal(α, β)
-end
+Diagonal(sz::Integer...) = Diagonal(ones32(sz...), zeros32(sz...))
 
 @functor Diagonal
 
