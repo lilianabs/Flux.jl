@@ -133,9 +133,7 @@ end
 function Dense(in::Integer, out::Integer, σ = identity;
                init = glorot_uniform, bias=true)
 
-  W = init(out, in)
-  b = bias
-  return Dense(W, b, σ)
+  Dense(init(out, in), bias, σ)
 end
 
 @functor Dense
