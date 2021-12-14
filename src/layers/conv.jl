@@ -62,8 +62,7 @@ Then:
 Keywords to control initialization of the layer:
 * `init` - Function used to generate initial weights. Defaults to `glorot_uniform`.
 * `bias` - Initial bias is zero by default, this can be disabled entirely by setting it to
-  [`Flux.Zeros()`](@ref) or equivalently `false`, or another vector provided as
-  `bias = randn(Float32, out)`.
+  `false`, or another vector explicitly as `bias = randn(Float32, out)`.
 
 See also [`ConvTranspose`](@ref), [`DepthwiseConv`](@ref), [`CrossCor`](@ref).
 
