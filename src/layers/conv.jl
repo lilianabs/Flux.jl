@@ -133,13 +133,9 @@ end
 
 function Conv(k::NTuple{N,Integer}, ch::Pair{<:Integer,<:Integer}, σ = identity;
             init = glorot_uniform, stride = 1, pad = 0, dilation = 1, groups = 1,
-            weight = nothing, bias = true) where N
-    if weight !== nothing
-      # TODO remove in v0.14
-      Base.depwarn("The `weight` keyword arg is deprecated, use the Conv(weight, ...) constructor instead", :conv_weight)
-    else
-      weight = convfilter(k, ch; init, groups)
-    end
+            bias = true) where N
+    
+  weight = convfilter(k, ch; init, groups)
   Conv(weight, bias, σ; stride, pad, dilation, groups)
 end
 
@@ -251,10 +247,10 @@ end
 function ConvTranspose(k::NTuple{N,Integer}, ch::Pair{<:Integer,<:Integer}, σ = identity;
                       init = glorot_uniform, stride = 1, pad = 0, dilation = 1,
                       groups = 1,
-                      weight = convfilter(k, reverse(ch); init, groups),
                       bias = true,
                       ) where N
 
+  weight = convfilter(k, reverse(ch); init, groups)                    
   ConvTranspose(weight, bias, σ; stride, pad, dilation, groups)
 end
 
@@ -335,7 +331,7 @@ struct DepthwiseConv{N,M,F,A,V}
 end
 
 """
-    DepthwiseConv(weight::AbstractArray, bias, [activation; stride, pad, dilation])
+    DepthwiseConv(weight::AbstractArray, [bias, activation; stride, pad, dilation])
 
 Constructs a layer with the given weight and bias arrays.
 Accepts the same keywords as the `DepthwiseConv((4,4), 3 => 6, relu)` method.
@@ -351,8 +347,9 @@ end
 
 function DepthwiseConv(k::NTuple{N,Integer}, ch::Pair{<:Integer,<:Integer}, σ = identity;
                 init = glorot_uniform, stride = 1, pad = 0, dilation = 1,
-                weight = depthwiseconvfilter(k, ch, init = init), bias = true) where N
+                bias = true) where N
   @assert ch[2] % ch[1] == 0 "Output channels must be integer multiple of input channels"
+  weight = depthwiseconvfilter(k, ch, init = init)
   return DepthwiseConv(weight, bias, σ; stride, pad, dilation)
 end
 
@@ -439,8 +436,9 @@ end
 
 function CrossCor(k::NTuple{N,Integer}, ch::Pair{<:Integer,<:Integer}, σ = identity;
                   init = glorot_uniform, stride = 1, pad = 0, dilation = 1,
-                  weight = convfilter(k, ch, init = init), bias = true) where N
+                  bias = true) where N
 
+  weight = convfilter(k, ch, init = init)
   return CrossCor(weight, bias, σ; stride, pad, dilation)
 end
 
